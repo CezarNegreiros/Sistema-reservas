@@ -12,8 +12,8 @@
 ### Clonando o Repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-projeto.git
-cd seu-projeto
+git clone git@github.com:CezarNegreiros/Sistema-reservas.git
+cd .\Sistema-reservas\
 ```
 ## Configuração
 
