@@ -34,7 +34,10 @@ class CreateReservationUseCase:
         property_data = await self.property_repository.get_by_id(
             str(reservation_data.property_id)
         )
-
+        if property_data is None:
+            raise HTTPException(
+                status_code=404, detail='property not found in database'
+            )
         if property_data.capacity < reservation_data.guests_quantity:
             raise HTTPException(
                 status_code=400, detail='More guests than allowed'
