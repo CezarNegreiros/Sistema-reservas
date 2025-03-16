@@ -7,7 +7,7 @@ from seazone.application.dtos.filter_params_dto import (
     FilterParamsPropertiesDTO,
 )
 from seazone.infra.repository.base_repository import BaseRepository
-from seazone.models.models import Property
+from seazone.domain.models import Property
 
 T = TypeVar('T')
 

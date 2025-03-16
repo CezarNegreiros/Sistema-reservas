@@ -74,7 +74,8 @@ async def list_reservations(
         - property_id: Id da propriedade vinculada à reserva
         - client_email: Email de quem fez a reserva
 
-    - Retorna a lista de reservas que cumprem com as especificações enviadas nos filtros
+    - Retorna a lista de reservas que cumprem com as especificações enviadas
+    nos filtros
     """
     reservation_use_case = ListReservationsUseCase(db)
 
@@ -94,7 +95,8 @@ async def cancel_reservation(
     Cancelamento de uma Reserva
 
     - Recebe o id da reserva como parâmetro na url
-    - Não retorna nada, caso a reserva seja cancelada (excluída) com sucesso (HTTP 204 no content)
+    - Não retorna nada, caso a reserva seja cancelada (excluída) com sucesso
+    (HTTP 204 no content)
     """
 
     reservation_use_case = CancelReservationUseCase(db)

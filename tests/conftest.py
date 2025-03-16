@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
 )
 
-from seazone.models.models import table_registry  # Importe seu modelo base
+from seazone.domain.models import table_registry  # Importe seu modelo base
 
 DATABASE_URL = 'sqlite+aiosqlite:///./test.db'
 

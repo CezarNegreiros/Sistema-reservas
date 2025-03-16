@@ -84,9 +84,11 @@ async def list_properties(
         - **city**: Cidade em que está localizada a propriedade
         - **state**: Estado em que está localizada a propriedade
         - **capacity**: Capacidade máxima de hóspedes da propriedade
-        - **max_price**: Preço máximo, de um dia, desejado na busca pelas propriedades
+        - **max_price**: Preço máximo, de um dia, desejado na busca pelas
+        propriedades
 
-    - Retorna a lista de propriedades que cumprem com as especificações enviadas nos filtros
+    - Retorna a lista de propriedades que cumprem com as especificações
+    enviadas nos filtros
     """
 
     property_use_case = ListPropertiesUseCase(db)
@@ -168,7 +170,7 @@ async def delete_property(
     Deleção de uma Propriedade
 
     - Recebe o id da propriedade como parâmetro na url
-    - Não retorna nada, caso o objeto seja excluído com sucesso (HTTP 204 no content)
+    - Não retorna nada, caso o objeto seja excluído com sucesso (HTTP 204)
     """
     property_use_case = DeletePropertyUseCase(db)
 
@@ -195,10 +197,13 @@ async def verify_availability(
         - end_date: Data de fim da possível reserva
         - guests_quantity: Quantidade de hóspedes da possível reserva
 
-    - Caso a propriedade esteja disponível de acordo com os parâmetros inseridos, é retornado um HTTP 204
+    - Caso a propriedade esteja disponível de acordo com os parâmetros
+    inseridos, é retornado um HTTP 204
     - Caso algum dos parâmetros não seja enviado, é retornado um status de erro
-    - Caso já exista uma reserva no intervalo de tempo inserido, é retornado um status de erro
-    - Caso número de hóspedes seja maior do que a capacidade da propriedade, é retornado um status de erro
+    - Caso já exista uma reserva no intervalo de tempo inserido, é retornado
+    um status de erro
+    - Caso número de hóspedes seja maior do que a capacidade da propriedade, é
+    retornado um status de erro
     """
     property_use_case = VerifyAvailabilityUseCase(db)
 

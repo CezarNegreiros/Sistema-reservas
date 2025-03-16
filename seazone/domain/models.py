@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 
 from sqlalchemy import Date, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, registry, relationship
@@ -15,7 +15,6 @@ class Property:
         init=False,
         primary_key=True,
         autoincrement=True,
-        nullable=True,
     )
     title: Mapped[str] = mapped_column(String(50), nullable=False)
     address_street: Mapped[str] = mapped_column(String(50), nullable=False)
@@ -51,3 +50,17 @@ class Reservation:
     total_price: Mapped[float] = mapped_column(Float, nullable=False)
 
     property = relationship('Property', back_populates='reservations')
+
+
+@table_registry.mapped_as_dataclass
+class User:
+    __tablename__ = 'users'
+
+    id: Mapped[int] = mapped_column(
+        Integer, init=False, primary_key=True, autoincrement=True, index=True
+    )
+    email: Mapped[str] = mapped_column(
+        String(100), unique=True, nullable=False
+    )
+    password: Mapped[str] = mapped_column(String(100), nullable=False)
+    created_at: Mapped[date] = mapped_column(Date, default=datetime.now())
