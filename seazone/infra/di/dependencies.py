@@ -1,6 +1,7 @@
 
 from fastapi import Depends
 from seazone.application.usecases.auth.create_user import CreateUserUseCase
+from seazone.application.usecases.auth.login import LoginUseCase
 from seazone.infra.database.database import AsyncSessionLocal
 from seazone.infra.repository.user_repository import UserRepository
 # from seazone.infra.services.jwt_token_service import JwtTokenService
@@ -26,3 +27,9 @@ def create_user_usecase(
     user_repository: UserRepository = Depends(user_repository),
 ) -> CreateUserUseCase:
     return CreateUserUseCase(user_repository=user_repository)
+
+
+def login_usecase(
+    user_repository: UserRepository = Depends(user_repository),
+) -> LoginUseCase:
+    return LoginUseCase(user_repository=user_repository)

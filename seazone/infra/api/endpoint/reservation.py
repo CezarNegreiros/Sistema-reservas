@@ -21,6 +21,9 @@ from seazone.application.usecases.reservation.update_reservation import (
     UpdateReservationUseCase,
 )
 from seazone.infra.database.database import get_db
+from seazone.infra.middleware.verification_token_middleware import (
+    verification_token
+)
 
 router = APIRouter(prefix='/reservations')
 
@@ -31,6 +34,7 @@ router = APIRouter(prefix='/reservations')
     tags=['Reservation'],
     summary='Criação de uma nova reserva',
 )
+@verification_token
 async def create_reservation(
     request: Request,
     reservation_data: ReservationCreateDTO,
@@ -62,6 +66,7 @@ async def create_reservation(
     tags=['Reservation'],
     summary='Listagem reservas',
 )
+@verification_token
 async def list_reservations(
     request: Request,
     filters: FilterParamsListReservationDTO = Depends(),
@@ -88,6 +93,7 @@ async def list_reservations(
     tags=['Reservation'],
     summary='Cancelamento de uma reserva',
 )
+@verification_token
 async def cancel_reservation(
     request: Request, reservation_id: str, db: AsyncSession = Depends(get_db)
 ):
@@ -110,6 +116,7 @@ async def cancel_reservation(
     tags=['Reservation'],
     summary='Atualização de uma reserva',
 )
+@verification_token
 async def update_reservation(
     request: Request,
     reservation_id: str,

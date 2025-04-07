@@ -28,6 +28,9 @@ from seazone.application.usecases.property.verify_availability import (
     VerifyAvailabilityUseCase,
 )
 from seazone.infra.database.database import get_db
+from seazone.infra.middleware.verification_token_middleware import (
+    verification_token
+)
 
 router = APIRouter(prefix='/properties')
 
@@ -38,6 +41,7 @@ router = APIRouter(prefix='/properties')
     tags=['Properties'],
     summary='Criação de uma nova propriedade',
 )
+@verification_token
 async def create_property(
     request: Request,
     property_data: PropertyCreateDTO,
@@ -71,6 +75,7 @@ async def create_property(
     tags=['Properties'],
     summary='Listagem de propriedades',
 )
+@verification_token
 async def list_properties(
     request: Request,
     filters: FilterParamsPropertiesDTO = Depends(),
@@ -102,6 +107,7 @@ async def list_properties(
     tags=['Properties'],
     summary='Busca de propriedade pelo id',
 )
+@verification_token
 async def get_property_by_id(
     request: Request,
     property_id: str,
@@ -125,6 +131,7 @@ async def get_property_by_id(
     tags=['Properties'],
     summary='Atualização de propriedades',
 )
+@verification_token
 async def update_property(
     request: Request,
     property_id: str,
@@ -163,6 +170,7 @@ async def update_property(
     tags=['Properties'],
     summary='Deleção de propriedades',
 )
+@verification_token
 async def delete_property(
     request: Request, property_id: str, db: AsyncSession = Depends(get_db)
 ):
@@ -183,6 +191,7 @@ async def delete_property(
     tags=['Properties'],
     summary='Verificação de disponibilidade de propriedades',
 )
+@verification_token
 async def verify_availability(
     request: Request,
     filters: FilterParamsAvailabilityDTO = Depends(),

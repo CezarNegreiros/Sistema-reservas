@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from seazone.application.dtos.auth_dto import CreateUserDTO
+from seazone.application.util.auth import get_password_hash
 from seazone.infra.repository.user_repository import UserRepository
 from passlib.context import CryptContext
 from seazone.infra.services.jwt_token_service import create_access_token
@@ -13,9 +14,17 @@ class CreateUserUseCase:
         self.user_repository = user_repository
 
     async def execute(self, user: CreateUserDTO) -> None:
-        # if is_user_registered:
+        user_registered = await self.user_repository.get_user_by_email(
+            user.email
+        )
 
-        user.password = self._get_password_hash(user.password)
+        if user_registered:
+            raise HTTPException(
+                status_code=400,
+                detail="Usuário já cadastrado"
+            )
+
+        user.password = get_password_hash(user.password)
         try:
             await self.user_repository.create(user)
         except Exception as ex:
@@ -30,7 +39,3 @@ class CreateUserUseCase:
             "mensagem": "Usuário criado com sucesso",
             "access_token": access_token
         }
-
-    @staticmethod
-    def _get_password_hash(password):
-        return pwd_context.hash(password)
